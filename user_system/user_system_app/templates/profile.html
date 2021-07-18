@@ -1,0 +1,29 @@
+{% include 'base.html'%}
+
+<body>
+    <div class="container">
+    <h3> Welcome {{name}}</h3>
+    
+    {% if users != None %}
+    <h3>List of Users available in database</h3>
+    {% for users in users %}
+       <a href="{% url 'userdetail' user.id %}" > {{users.username}}</a><br><br>
+    {% endfor %}
+    {% endif %}
+
+    {% if messages %}
+    {% for message in messages %}
+    <small {% if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</small>
+    {% endfor %}
+    {% endif %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Update">
+        &nbsp;
+        <a href="{% url 'logout' %}">Logout</a>
+    </form>
+    
+    </div>
+</body>
